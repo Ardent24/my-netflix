@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState, FC } from "react";
+import { IMovie } from "./interfaces/interfaces";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [isError, setIsError] = useState<Boolean>(false);
 
-export default App;
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch("http://localhost:4000/movies");
+        const json = await response.json();
+        console.log(json.data);
+        setMovies((prev) => [json.data, ...prev]);
+      } catch (err) {
+        setIsError(true);
+      }
+    })();
+  }, []);
+
+  return <div className="App" />;
+};

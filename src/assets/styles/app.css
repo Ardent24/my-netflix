@@ -1,0 +1,15 @@
+@import "reset.css";
+
+body {
+    font-family: Roboto, sans-serif;
+}
+
+.hover-opacity {
+    opacity: 1;
+    transition: .2s opacity;
+}
+
+.hover-opacity:hover{
+    opacity: 0.6;
+}
+
